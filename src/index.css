@@ -8,6 +8,12 @@ body {
     margin: 0;
     padding: 2rem;
 }
+main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 header{
   display: flex;
   justify-content: center;
@@ -16,14 +22,66 @@ header{
 }
 header > h1{
   font-family: "Caacupe One", sans-serif;
+  font-size: 40px;
   font-weight: 800;
   font-style: normal;
 }
 section.question-container{
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: #3b0075;
+  font-family: "Caacupe One", sans-serif;
   border-radius: 8px;
+  padding: 10px 20px 20px 20px;
+  margin-bottom: 30px;
+  min-height: 300px;
+  max-height: 350px;
+  max-width: 420px;
+}
+
+section.question-container button{
+    display: flex;  
+    margin: 20px auto;
+    justify-content: center;
+    gap: 10px;
+    max-width: 400px;
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #ff9c1c;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    font-family: "Caacupe One", sans-serif;
+    font-weight: 600;
+}
+section.question-container button.picked{
+  background-color: rgb(255, 208, 0);
+  box-shadow: 0 0 8px #ffee00, 0 0 20px #ffee00, 0 0 20px #ffee00;
+}
+.next-button{
+  font-family: "Caacupe One", sans-serif;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  width: 320px;
+  cursor: pointer;
+  padding: 10px;
+  background-color: #AA6DFF;
+  border: none;
+  border-radius: 36px;
+  transition: all 0.3s ease; 
+  color: #E6E6FA;
+}
+.next-button:hover {
+  box-shadow: 0 0 15px #9955f8, 0 0 25px #d0afff;
+  transform: scale(1.05); 
+}
+.loading{
+  font-size: 50px;
+  text-align: center;
+  justify-content: center;
 }

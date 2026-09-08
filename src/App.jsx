@@ -3,8 +3,8 @@ import Header from "./components/header";
 
 export default function App() {
     const [question, setQuestion] = React.useState([])
-
-
+    const [currentQuestion, setCurrentQuestion] = React.useState(0)
+    const current = question[currentQuestion]
     function decode(text){
         const el = document.createElement("textarea")
         el.innerHTML = text
@@ -27,28 +27,41 @@ export default function App() {
         })
     }
     , [])
-    const readyQuestion = question.map(q =>{
-        return(
-            <div key={q.id} className="question">
-                <h2>{q.question}</h2>
-                {q.answers.map(a =>{
-                    return (
-                        <button key={a}>
-                            {a}
-                        </button>
-                    )
-                }
-                )}
-            </div>
-        )
-    })
-
+    
+            
+    function toggleAnswer(id, answer){
+        setQuestion(prev => prev.map(q => q.id === id ? ({...q, selectedAnswer: answer}) : q))
+    }
+    
+    if (!current) {
+        return <p className="loading">Loading...</p>
+    }
+    function nextQuestion(){
+        setCurrentQuestion(prev => prev + 1)
+    }
     return (
         <main>
             <Header />
             <section className="question-container">
-                {readyQuestion}
+                {<div className="question">
+                    <h2>{current.question}</h2>
+                    {current.answers.map(a => {
+                        const answerClass = a === current.selectedAnswer ? "picked" : ""
+                        
+                        return (
+                                <button
+                                    key={a}
+                                    onClick={() => toggleAnswer(current.id, a)}
+                                    className={answerClass}
+                                >
+                                    {a}
+                                </button>
+
+                        )
+                    })}
+                </div>}
             </section>
+            <button className="next-button" onClick={nextQuestion}>Next question</button>
         </main>
     )
 }
