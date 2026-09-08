@@ -1,7 +1,7 @@
 export default function Header(){
   return(
     <header>
-      <h1>Welcome to the quiz game!</h1>
+      <h1>Random quiz game!</h1>
     </header>
   )
 }
