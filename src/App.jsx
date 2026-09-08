@@ -20,14 +20,20 @@ export default function App() {
         })
     }
     , [])
-
+    const readyQuestion = question.map(q =>{
+        return(
+            <>
+                <h2 key={q.id}>{q.question}</h2>
+                <p key={q.id}>{q.answers}</p>
+            </>
+        )
+    })
     
     return (
         <main>
             <Header />
             <section className="question-container">
-                <h2></h2>
-                <p></p>
+                {readyQuestion}
             </section>
         </main>
     )
