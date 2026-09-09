@@ -4,7 +4,12 @@ import Header from "./components/header";
 export default function App() {
     const [question, setQuestion] = React.useState([])
     const [currentQuestion, setCurrentQuestion] = React.useState(0)
+    const [isFinished, setIsFinished] = React.useState(false)
     const current = question[currentQuestion]
+    const isLastQuestion = currentQuestion === question.length - 1
+    const correctQuizAnswers = question.filter(a => 
+        a.selectedAnswer === a.correctAnswer).length
+
     function decode(text){
         const el = document.createElement("textarea")
         el.innerHTML = text
@@ -32,18 +37,27 @@ export default function App() {
     function toggleAnswer(id, answer){
         setQuestion(prev => prev.map(q => q.id === id ? ({...q, selectedAnswer: answer}) : q))
     }
-    
+    if (isFinished){
+        return <p>congrats u have {correctQuizAnswers}/{question.length}</p>
+    }
     if (!current) {
         return <p className="loading">Loading...</p>
     }
+    
     function nextQuestion(){
-        setCurrentQuestion(prev => prev + 1)
+        
+        if(isLastQuestion){
+            setIsFinished(true)
+        }
+        else{
+            setCurrentQuestion(prev => prev + 1)
+        }
     }
     return (
         <main>
             <Header />
             <section className="question-container">
-                {<div className="question">
+                <div className="question">
                     <h2>{current.question}</h2>
                     {current.answers.map(a => {
                         const answerClass = a === current.selectedAnswer ? "picked" : ""
@@ -59,9 +73,12 @@ export default function App() {
 
                         )
                     })}
-                </div>}
+                </div>
+
+            
+                
             </section>
-            <button className="next-button" onClick={nextQuestion}>Next question</button>
+            <button className="next-button" onClick={nextQuestion}>{isLastQuestion ? "Show result" : "Next question"}</button>
         </main>
     )
 }
