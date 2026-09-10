@@ -36,7 +36,7 @@ section.question-container{
   padding: 10px 20px 20px 20px;
   margin-bottom: 30px;
   min-height: 300px;
-  max-height: 350px;
+  max-height: 400px;
   max-width: 420px;
 }
 
@@ -76,6 +76,15 @@ section.question-container button.picked{
   border-radius: 36px;
   transition: all 0.3s ease; 
   color: #E6E6FA;
+}
+.next-button:disabled {
+  background-color: #AA6DFF;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.next-button:disabled:hover {
+  box-shadow: none;
+  transform: none; 
 }
 .next-button:hover {
   box-shadow: 0 0 15px #9955f8, 0 0 25px #d0afff;

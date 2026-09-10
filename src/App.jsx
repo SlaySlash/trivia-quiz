@@ -15,7 +15,7 @@ export default function App() {
         el.innerHTML = text
         return el.value
     }
-    React.useEffect(() =>{
+    function getQuestion(){
         const url = import.meta.env.VITE_QUIZ_URL;
         fetch(url)
         .then(res => res.json())
@@ -31,6 +31,9 @@ export default function App() {
             setQuestion(mapQuestion)
         })
     }
+    React.useEffect(() =>{
+        getQuestion()
+    }
     , [])
     
             
@@ -38,7 +41,12 @@ export default function App() {
         setQuestion(prev => prev.map(q => q.id === id ? ({...q, selectedAnswer: answer}) : q))
     }
     if (isFinished){
-        return <p>congrats u have {correctQuizAnswers}/{question.length}</p>
+        return( 
+            <div>
+                <p>congrats u have {correctQuizAnswers}/{question.length}</p>
+                 <button onClick={newGame}>New Game</button>
+            </div>
+        )
     }
     if (!current) {
         return <p className="loading">Loading...</p>
@@ -52,6 +60,11 @@ export default function App() {
         else{
             setCurrentQuestion(prev => prev + 1)
         }
+    }
+    function newGame(){
+        setCurrentQuestion(0)
+        setIsFinished(false)
+        getQuestion()
     }
     return (
         <main>
@@ -78,7 +91,13 @@ export default function App() {
             
                 
             </section>
-            <button className="next-button" onClick={nextQuestion}>{isLastQuestion ? "Show result" : "Next question"}</button>
+            <button 
+                className="next-button" 
+                onClick={nextQuestion}
+                disabled={!current.selectedAnswer}
+                >{isLastQuestion ? "Show result" : "Next question"}
+            </button>
+            
         </main>
     )
 }
