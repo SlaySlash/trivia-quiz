@@ -8,6 +8,7 @@ body {
     color: white;
     margin: 0;
     padding: 2rem;
+    font-family: "Caacupe One", sans-serif;
 }
 main{
   display: flex;
@@ -22,7 +23,6 @@ header{
   padding: 15px;
 }
 header > h1{
-  font-family: "Caacupe One", sans-serif;
   font-size: 40px;
   font-weight: 800;
   font-style: normal;
@@ -39,7 +39,11 @@ section.question-container{
   max-height: 400px;
   max-width: 420px;
 }
-
+section.question-container p{
+  font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+}
 section.question-container button{
     display: flex;  
     margin: 20px auto;
@@ -90,8 +94,32 @@ section.question-container button.picked{
   box-shadow: 0 0 15px #9955f8, 0 0 25px #d0afff;
   transform: scale(1.05); 
 }
-.loading{
-  font-size: 50px;
-  text-align: center;
+section.loading-screen{
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+section.loading-screen button{
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 6px;
+  background-color: #9955f8;
+}
+div.quiz-results{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+div.quiz-results p{
+  font-size: 25px;
+}
+div.quiz-results button{
+  padding: 15px;
+  border-radius: 36px;
+  background-color: #ffee00;
+  border: none;
+  cursor: pointer;
 }

@@ -23,7 +23,7 @@ export default function App() {
             const mapQuestion = data.results.map((q, index) => 
                 ({question: decode(q.question),
                   id: index,
-                  category: q.category,
+                  category: decode(q.category),
                   answers: [...q.incorrect_answers, q.correct_answer].map(decode).sort(() => Math.random() - 0.5),
                   selectedAnswer: null, 
                   correctAnswer: decode(q.correct_answer)
@@ -42,14 +42,19 @@ export default function App() {
     }
     if (isFinished){
         return( 
-            <div>
-                <p>congrats u have {correctQuizAnswers}/{question.length}</p>
-                 <button onClick={newGame}>New Game</button>
+            <div className="quiz-results">
+                <p className="quiz-points">CONGRATULATIONS!!!!!!!! YOU GOT {correctQuizAnswers}/{question.length}</p>
+                <button onClick={newGame} className="new-game">New Game</button>
             </div>
         )
     }
     if (!current) {
-        return <p className="loading">Loading...</p>
+        return (
+            <section className="loading-screen">
+                <p className="loading">Loading...</p>
+                <button onClick={newGame}>if it takes more than 10 seconds click</button>
+            </section>
+        )
     }
     
     function nextQuestion(){
@@ -71,6 +76,7 @@ export default function App() {
             <Header />
             <section className="question-container">
                 <div className="question">
+                    <p>Cattegory: {current.category}</p>
                     <h2>{current.question}</h2>
                     {current.answers.map(a => {
                         const answerClass = a === current.selectedAnswer ? "picked" : ""
