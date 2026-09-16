@@ -10,6 +10,7 @@ export default function App() {
     const correctQuizAnswers = question.filter(a => 
         a.selectedAnswer === a.correctAnswer).length
 
+
     function decode(text){
         const el = document.createElement("textarea")
         el.innerHTML = text
@@ -41,9 +42,19 @@ export default function App() {
         setQuestion(prev => prev.map(q => q.id === id ? ({...q, selectedAnswer: answer}) : q))
     }
     if (isFinished){
+        const finishedQuestion = question.map(p =>(
+            <div key={p.id}>
+                <h2>Question number {p.id + 1}</h2>
+                <p>{p.question}</p>
+                <p>Correct answer: {p.correctAnswer}</p>
+                <p>You selected: {p.selectedAnswer}</p>
+            </div>
+        ))
+
         return( 
             <div className="quiz-results">
                 <p className="quiz-points">CONGRATULATIONS!!!!!!!! YOU GOT {correctQuizAnswers}/{question.length}</p>
+                {finishedQuestion}
                 <button onClick={newGame} className="new-game">New Game</button>
             </div>
         )
@@ -74,9 +85,10 @@ export default function App() {
     return (
         <main>
             <Header />
+            <p className="question-counter">Question {currentQuestion + 1} / {question.length}</p>
             <section className="question-container">
                 <div className="question">
-                    <p>Cattegory: {current.category}</p>
+                    <p>Category: {current.category}</p>
                     <h2>{current.question}</h2>
                     {current.answers.map(a => {
                         const answerClass = a === current.selectedAnswer ? "picked" : ""
@@ -92,10 +104,8 @@ export default function App() {
 
                         )
                     })}
+                    
                 </div>
-
-            
-                
             </section>
             <button 
                 className="next-button" 
