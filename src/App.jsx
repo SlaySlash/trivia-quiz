@@ -43,7 +43,10 @@ export default function App() {
     }
     if (isFinished){
         const finishedQuestion = question.map(p =>(
-            <div key={p.id}>
+            <div 
+                key={p.id} 
+                className={`result-item ${p.selectedAnswer === p.correctAnswer ? "correct" : "wrong"}`}
+            >
                 <h2>Question number {p.id + 1}</h2>
                 <p>{p.question}</p>
                 <p>Correct answer: {p.correctAnswer}</p>
