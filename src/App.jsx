@@ -5,6 +5,7 @@ export default function App() {
     const [question, setQuestion] = React.useState([])
     const [currentQuestion, setCurrentQuestion] = React.useState(0)
     const [isFinished, setIsFinished] = React.useState(false)
+    const [error, setError] = React.useState(null)
     const current = question[currentQuestion]
     const isLastQuestion = currentQuestion === question.length - 1
     const correctQuizAnswers = question.filter(a => 
@@ -19,8 +20,11 @@ export default function App() {
     function getQuestion(){
         const url = import.meta.env.VITE_QUIZ_URL;
         fetch(url)
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) throw new Error("Something went wrong. Please try again.")
+            return res.json()})
         .then(data => {
+            if (!data.results) throw new Error("Too many requests. Wait a few seconds and try again.")
             const mapQuestion = data.results.map((q, index) => 
                 ({question: decode(q.question),
                   id: index,
@@ -31,6 +35,7 @@ export default function App() {
                 }))
             setQuestion(mapQuestion)
         })
+        .catch(err => setError(err.message))
     }
     React.useEffect(() =>{
         getQuestion()
@@ -62,11 +67,18 @@ export default function App() {
             </div>
         )
     }
+    if (error){
+        return(
+            <section className="error-screen">
+                <p>{error}</p>
+                <button onClick={newGame}>Try again</button>
+            </section>
+        )
+    }
     if (!current) {
         return (
             <section className="loading-screen">
                 <p className="loading">Loading...</p>
-                <button onClick={newGame}>if it takes more than 10 seconds click</button>
             </section>
         )
     }
@@ -84,6 +96,7 @@ export default function App() {
         setCurrentQuestion(0)
         setIsFinished(false)
         getQuestion()
+        setError(null)
     }
     return (
         <main>
