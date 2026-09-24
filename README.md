@@ -10,6 +10,7 @@ A simple 10-question quiz built with React.
 - You have to pick an answer before moving on
 - Summary at the end with your score and the correct answers
 - Answers are shuffled, so the correct one isn't always in the same spot
+- Works on mobile
 
 ## Built with
 - React
@@ -19,6 +20,7 @@ A simple 10-question quiz built with React.
 ## What I learned
 - How to decode HTML entities from an API response
 - Why shuffling has to happen before saving to state, not during render
+- Why media queries don't work on mobile without the viewport meta tag
 
 ## Running locally
 
