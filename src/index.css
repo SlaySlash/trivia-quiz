@@ -153,6 +153,27 @@ div.quiz-results button{
     0 0 20px #ff0000,  
     0 0 40px #ff0000;
 }
+.error-screen{
+  justify-content: center;
+  text-align: center;
+}
+.error-screen p{
+  font-size: 20px;
+}
+.error-screen button{
+  padding: 10px;
+  background-color: #AA6DFF;
+  border: none;
+  border-radius: 10px;
+}
+@keyframes pulse {
+  from { opacity: 1; }
+  to   { opacity: 0.3; }
+}
+.loading {
+  animation: pulse 1s infinite alternate;
+}
+
 @media (max-width: 600px) {
     header{
     padding: 0;
